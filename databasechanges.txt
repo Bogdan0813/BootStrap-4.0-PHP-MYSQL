@@ -1,0 +1,30 @@
+DATABASE CHANGES
+
+--------------------------
+
+ALTER TABLE trusted_reviews.reports ADD ip varchar(255) NOT NULL;
+ALTER TABLE trusted_reviews.reviews ADD ip varchar(255) NOT NULL;
+ALTER TABLE trusted_reviews.reviews ADD website_id  int(11) NOT NULL;
+ALTER TABLE trusted_reviews.votes ADD ip varchar(255) NOT NULL;
+
+CREATE TABLE websites (
+  id int(11) NOT NULL,
+  title varchar(255) NOT NULL,
+  created_at datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE websites
+ADD PRIMARY KEY (id);
+
+ALTER TABLE reviews
+ADD KEY web_fk (website_id);
+
+
+
+
+still do do is this one...
+
+ALTER TABLE reviews
+ADD CONSTRAINT web_fk FOREIGN KEY (website_id) REFERENCES websites (id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
